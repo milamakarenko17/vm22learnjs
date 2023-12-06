@@ -3,13 +3,19 @@
 const app = express();
 const nunjucks = require('nunjucks');
 
-app.get('/', function (req, res) {
-  let name = "Mila Makarenko";
-  res.sendFile('index.njk', {name})
-});
+
+app.use(express.urlencoded())
 
 app.get('/', function (req, res) {
-  res.render ('about.njk')
+  let name = req.query.name;
+  let age = req.query.age;
+  res.re('index.njk', {name, age})
+});
+
+app.post('/answer', function (req, res) {
+  let name = req.query.name;
+  let age = req.query.age;
+  res.re('answer.njk', {name, age})
 });
 
 app.listen(3000);
